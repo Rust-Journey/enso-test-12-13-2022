@@ -41,3 +41,22 @@ impl<'s> LexerModel<'s> {
     }
 }
 ```
+
+
+Answer:
+
+The problem comes from this line of code in `Lexer::new()` function.
+```rust
+let allocator_ref: &Bump = unsafe { &*(&allocator as *const Bump) };
+let model = LexerModel::new(allocator_ref, &input);
+```
+
+The `LexerModel` depends on `allocator_ref` for allocating memory for output.
+But it doesn't keep any ownership or borrowing, so it allows the `allocator` in
+`Lexer` struct to be dropped before `LexerModel` struct's drop.
+
+If we move `model` of `Lexer` struct out of the `Lexer` instance after allocating,
+and drop `Lexer` instance, the `model`(instance of `LexerModel`) won't be safe.
+
+We can fix it by keeping borrowing of `allocator` of `Lexer` into `LexerModel` as 
+a private field since we don't want to expose it to users.
