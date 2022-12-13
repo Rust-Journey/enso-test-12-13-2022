@@ -47,3 +47,7 @@ Questions:
 2. Is it safe to use `MyRefCell::borrow_mut` when compiling to WASM and running in a browser? If
    not, what bad things could happen? Please elaborate.
 
+
+Answers:
+1. Yes.
+2. No. Since wasm binding's memory is accessible through Javascript linear memory, any index of the data can be modified so the data `MyRefCell` is pointing to can be changed accidently in Javascript code.
