@@ -17,3 +17,7 @@ fire all of them at the same time. In particular:
 
 Take an extra care about performance and how easy it is to use the API of `CallbackManager`, please.
 You can use unstable Rust if you want to.
+
+
+Answer:
+https://github.com/Rust-Journey/callback-manager
