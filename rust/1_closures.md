@@ -23,3 +23,10 @@ Questions:
    question mark `let _wrapper : Wrapper<?> = ...`)?.
 3. What is the memory representation of `_wrapper`?
 4. What is the difference between the type of `_wrapper` and `Wrapper<Box<dyn Fn(usize) -> usize>>`?
+
+Answers:
+
+1. `Wrapper<impl Fn(usize) -> usize>`
+2. `_`
+3. `align`, `size`: `size_of::<usize>()`
+4. `_wrapper` contains a closure, but `Wrapper<Box<dyn Fn(usize) -> usize>>` contains smart pointer of a trait object
